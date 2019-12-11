@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <b>
+        <p>Guess the correct secret number. It's an integer that's from 0 to 10. <u>You have 3 tries.</u> Click on the button to play.</p>
+    </b>
+
+    <button id="play-btn">Play</button>
+
+    <p id="demo"></p>
+
+    <script>
+
+        document.getElementById('play-btn').addEventListener('click', myFunction)
+
+        const secretnumber = Math.floor(Math.random() * 11);
+
+        let guess;
+
+        let guesscount = 0;
+
+        const guesslimit = 3;
+
+        let outofguesses = false;
+
+        function myFunction() {
+            while (guess != secretnumber && outofguesses == false) {
+                
+                if (guesscount < guesslimit) {
+
+                    guess = prompt("ENTER AN INTEGER FROM 0 TO 10:");
+
+                    if (guess === null) {
+                        return // if the user presses cancel, the input will be null
+                    } else if (guess === "") {
+                        alert("You did not enter anything. Don't worry. You did not waste a guess.")
+                        return // if the user presses ok without anything in the box, the input will be an empty string
+                    }
+
+                    if (guess > secretnumber) {
+                        guesscount = guesscount + 1;
+                        alert("Your guess is larger than the secret number. You have guessed " + guesscount.toString() + " times.");
+                    } else if (guess < secretnumber) {
+                        guesscount = guesscount + 1;
+                        alert("Your guess is smaller than the secret number. You have guessed " + guesscount.toString() + " times.");
+                    } else if (guess == secretnumber) {
+                        guesscount = guesscount + 1;
+                        alert("You guess is correct. You win! You have guessed " + guesscount.toString() + " times.")
+                    } else if (isNaN(guess) == true) {
+                        alert("Your guess is not an integer that's from 0 to 10. Don't worry. You did not waste a guess.")
+                    } 
+
+                } else {
+                    outofguesses = true;
+                }
+
+            }
+
+            if (outofguesses == true) {
+                document.getElementById("demo").innerHTML = "You lose! You have run out of guesses. The secret number is " + secretnumber.toString() + ".";
+            } else {
+                document.getElementById("demo").innerHTML = "You win! You have successfully guessed the secret number. The secret number is " + secretnumber.toString() + ".";
+            }
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
